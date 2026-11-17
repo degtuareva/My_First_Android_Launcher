@@ -17,11 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:minHeight="48dp"
-        android:maxWidth="300dp"
         android:autofillHints="none"
         android:hint="@string/label_amount"
         android:inputType="numberDecimal"
+        android:maxWidth="300dp"
+        android:minHeight="48dp"
         android:text="@string/default_amount" />
 
     <!-- Поле: Срок -->
@@ -36,11 +36,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:minHeight="48dp"
-        android:maxWidth="300dp"
         android:autofillHints="none"
         android:hint="@string/label_term"
         android:inputType="number"
+        android:maxWidth="300dp"
+        android:minHeight="48dp"
         android:text="@string/default_term" />
 
     <!-- Поле: Ставка -->
@@ -55,11 +55,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:minHeight="48dp"
-        android:maxWidth="300dp"
         android:autofillHints="none"
         android:hint="@string/label_rate"
         android:inputType="numberDecimal"
+        android:maxWidth="300dp"
+        android:minHeight="48dp"
         android:text="@string/default_rate" />
 
     <Button
@@ -80,4 +80,53 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
+    <!-- ЗАГОЛОВКИ ТАБЛИЦЫ (опционально) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:layout_marginTop="16dp">
+
+        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Мес." android:gravity="center" android:textStyle="bold"/>
+        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Платеж" android:gravity="center" android:textStyle="bold"/>
+        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Долг" android:gravity="center" android:textStyle="bold"/>
+        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="%" android:gravity="center" android:textStyle="bold"/>
+        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Остаток" android:gravity="center" android:textStyle="bold"/>
+    </LinearLayout>
+
+    <!-- САМ СПИСОК -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPayments"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_type_pay"
+        android:textSize="16sp" />
+
+    <Spinner
+        android:id="@+id/spinnerType"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="24dp" />
+
 </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+

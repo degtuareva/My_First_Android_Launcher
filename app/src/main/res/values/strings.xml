@@ -8,4 +8,5 @@
     <string name="default_amount">500000</string>
     <string name="default_term">36</string>
     <string name="default_rate">18.5</string>
+    <string name="default_type_pay">Тип платежа</string>
 </resources>

@@ -7,10 +7,13 @@ public class CreditRequest {
     private int termMonths;
     private BigDecimal annualRate;
 
-    public CreditRequest(BigDecimal amount,int termMonths,BigDecimal annualRate){
+    private PaymentType paymentType;
+
+    public CreditRequest(BigDecimal amount,int termMonths,BigDecimal annualRate,PaymentType paymentType){
         this.amount=amount;
         this.termMonths=termMonths;
         this.annualRate=annualRate;
+        this.paymentType=paymentType;
     }
 
     public BigDecimal getAmount() {
@@ -24,4 +27,6 @@ public class CreditRequest {
     public BigDecimal getAnnualRate() {
         return annualRate;
     }
+
+    public PaymentType getPaymentType(){return paymentType;}
 }
