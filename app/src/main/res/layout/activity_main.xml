@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Поле: Сумма -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_amount"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/etAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:minHeight="48dp"
+        android:maxWidth="300dp"
+        android:autofillHints="none"
+        android:hint="@string/label_amount"
+        android:inputType="numberDecimal"
+        android:text="@string/default_amount" />
+
+    <!-- Поле: Срок -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_term"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/etTerm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:minHeight="48dp"
+        android:maxWidth="300dp"
+        android:autofillHints="none"
+        android:hint="@string/label_term"
+        android:inputType="number"
+        android:text="@string/default_term" />
+
+    <!-- Поле: Ставка -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_rate"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/etRate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:minHeight="48dp"
+        android:maxWidth="300dp"
+        android:autofillHints="none"
+        android:hint="@string/label_rate"
+        android:inputType="numberDecimal"
+        android:text="@string/default_rate" />
+
+    <Button
+        android:id="@+id/btnCalculate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxWidth="300dp"
+        android:text="@string/btn_calculate"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="@string/hint_result"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

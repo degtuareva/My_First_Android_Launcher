@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Кредитный помощник</string>
+    <string name="label_amount">Сумма кредита</string>
+    <string name="label_term">Срок(месяцев)</string>
+    <string name="label_rate">Ставка</string>
+    <string name="btn_calculate">Рассчитать</string>
+    <string name="hint_result">Результат появится здесь</string>
+    <string name="default_amount">500000</string>
+    <string name="default_term">36</string>
+    <string name="default_rate">18.5</string>
+</resources>
