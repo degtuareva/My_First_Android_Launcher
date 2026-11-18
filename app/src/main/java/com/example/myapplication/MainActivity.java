@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.calculator.AnnuityPaymentCalculator;
 import com.example.myapplication.calculator.CreditRequest;
+import com.example.myapplication.calculator.CreditRequestValidator;
 import com.example.myapplication.calculator.CreditSchedule;
 import com.example.myapplication.calculator.DifferentialPaymentCalculator;
 import com.example.myapplication.calculator.PaymentCalculator;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerType;
     private RecyclerView recyclerView;
     private PaymentAdapter adapter;
+
+    private final CreditRequestValidator validator=new CreditRequestValidator();
 
     PaymentCalculatorFactory factory = new PaymentCalculatorFactory(
             new AnnuityPaymentCalculator(),
@@ -54,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         String[] types = {"Аннуитентный", "Дифференцированный"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, types);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerType.setAdapter(adapter);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerType.setAdapter(spinnerAdapter);
 
         Button btnCalculate = findViewById(R.id.btnCalculate);
 
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             }
             CreditRequest request=new CreditRequest(amount,termMonths,rate,
                     paymentType);
+            validator.validate(request);
 
             PaymentCalculator calculator=factory.getCalculator(paymentType);
 
@@ -121,7 +125,10 @@ public class MainActivity extends AppCompatActivity {
             // Прячем клавиатуру после нажатия (опционально, для удобства)
             android.view.inputmethod.InputMethodManager imm = (android.view.inputmethod.InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             if (imm != null) imm.hideSoftInputFromWindow(tvResult.getWindowToken(), 0);
-        } catch (Exception e) {
+        }catch (IllegalArgumentException e){
+            // Ошибки валидации (например, сумма < 100)
+            tvResult.setText("Ошибка: "+e.getMessage());
+        }catch (Exception e) {
             tvResult.setText("Ошибка ввода данных.");
         }
     }

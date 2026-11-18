@@ -9,4 +9,10 @@
     <string name="default_term">36</string>
     <string name="default_rate">18.5</string>
     <string name="default_type_pay">Тип платежа</string>
+    <string name="label_payment_type">Тип платежа</string>
+    <string name="col_month">Мес.</string>
+    <string name="col_payment">Платеж</string>
+    <string name="col_principal">Долг</string>
+    <string name="col_interest">%</string>
+    <string name="col_remaining">Остаток</string>
 </resources>
