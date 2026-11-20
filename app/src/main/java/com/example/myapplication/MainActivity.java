@@ -20,6 +20,9 @@ import com.example.myapplication.calculator.DifferentialPaymentCalculator;
 import com.example.myapplication.calculator.PaymentCalculator;
 import com.example.myapplication.calculator.PaymentCalculatorFactory;
 import com.example.myapplication.calculator.PaymentType;
+import com.example.myapplication.database.AppDatabase;
+import com.example.myapplication.database.CalculationEntity;
+
 
 import java.math.BigDecimal;
 
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerType;
     private RecyclerView recyclerView;
     private PaymentAdapter adapter;
+    private AppDatabase db;
 
     private final CreditRequestValidator validator=new CreditRequestValidator();
 
@@ -42,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = AppDatabase.getInstance(this);
 
         //1Находим элементы на экране
         etAmount = findViewById(R.id.etAmount);
@@ -86,24 +92,25 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        int termMonths = 0;
+        PaymentType paymentType = null;
         try {
             BigDecimal amount = new BigDecimal(amountStr);
-            int termMonths = Integer.parseInt(termStr);
+            termMonths = Integer.parseInt(termStr);
             BigDecimal rate = new BigDecimal(rateStr);
 
-            PaymentType paymentType;
             if (spinnerType.getSelectedItemPosition() == 0) {
-                paymentType=PaymentType.ANNUITY;
+                paymentType = PaymentType.ANNUITY;
             } else {
-               paymentType=PaymentType.DIFFERENTIAL;
+                paymentType = PaymentType.DIFFERENTIAL;
             }
-            CreditRequest request=new CreditRequest(amount,termMonths,rate,
+            CreditRequest request = new CreditRequest(amount, termMonths, rate,
                     paymentType);
             validator.validate(request);
 
-            PaymentCalculator calculator=factory.getCalculator(paymentType);
+            PaymentCalculator calculator = factory.getCalculator(paymentType);
 
-            CreditSchedule schedule=calculator.calculate(request);
+            CreditSchedule schedule = calculator.calculate(request);
 
             //создаем форматтер для рублей
             java.text.NumberFormat format = java.text.NumberFormat.getInstance(
@@ -125,12 +132,22 @@ public class MainActivity extends AppCompatActivity {
             // Прячем клавиатуру после нажатия (опционально, для удобства)
             android.view.inputmethod.InputMethodManager imm = (android.view.inputmethod.InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             if (imm != null) imm.hideSoftInputFromWindow(tvResult.getWindowToken(), 0);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             // Ошибки валидации (например, сумма < 100)
-            tvResult.setText("Ошибка: "+e.getMessage());
-        }catch (Exception e) {
+            tvResult.setText("Ошибка: " + e.getMessage());
+        } catch (Exception e) {
             tvResult.setText("Ошибка ввода данных.");
         }
+        // Сохраняем в локальную базу
+        CalculationEntity entity = new CalculationEntity(
+                amountStr,
+                termMonths,
+                rateStr,
+                paymentType.name(), // "ANNUITY" или "DIFFERENTIAL"
+                System.currentTimeMillis()
+        );
+        db.calculationDao().insert(entity);
+
     }
 }
 
